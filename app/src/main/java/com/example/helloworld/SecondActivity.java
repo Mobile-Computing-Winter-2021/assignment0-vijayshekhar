@@ -21,8 +21,8 @@ public class SecondActivity extends AppCompatActivity {
     private boolean safe;
     boolean c1check, c2check, c3check, c4check, c5check;
     private final static String DEBUG_TAG="Second Activity";
-    private String presentState="none";
-    private String prevstate="none";
+    private String presentState="Activity launched";
+    private String prevstate="Activity launched";
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
