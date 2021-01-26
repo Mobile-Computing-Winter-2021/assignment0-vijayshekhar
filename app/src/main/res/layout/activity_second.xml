@@ -8,30 +8,13 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="COVID_19 Precautions App"
-        android:textColor="#9C27B0"
-        android:textColorLink="#FFFFFF"
-        android:textSize="20sp"
-        android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter your name"
-        android:textSize="18sp"
-        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="Precautions taken:"
+        android:text="Precautions selected:"
         android:textColor="#9C27B0"
         android:textSize="20sp"
         tools:ignore="HardcodedText" />
@@ -83,34 +66,29 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
+
+
+<!--        <Button-->
+<!--            android:id="@+id/submit_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="back"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="138dp"-->
+<!--            tools:layout_editor_absoluteY="16dp" />-->
 
         <Button
             android:id="@+id/clear_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="138dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:text="Clear"
-            android:layout_marginTop="16dp"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="Check"
             tools:ignore="MissingConstraints"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="16dp" />
-
-    </RelativeLayout>
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
