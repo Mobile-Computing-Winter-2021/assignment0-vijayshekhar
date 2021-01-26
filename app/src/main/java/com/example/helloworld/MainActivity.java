@@ -2,8 +2,8 @@ package com.example.helloworld;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,21 +11,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String DEBUG_TAG = "Main Activity" ;
     Button submitbt, clearbt;
     EditText nameet;
     CheckBox c1,c2,c3,c4,c5;
-
+    TextView safetv;
     private int reqKey =0;
     private boolean checkClicked=false;
+
+    private String presentState="none";
+    private String prevstate="none";
 
     // on create state
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presentState="onCreate state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onCreate state.";
+
+
 
         setContentView(R.layout.activity_main);
 
@@ -37,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
         c3 = (CheckBox)findViewById(R.id.prec3);
         c4 = (CheckBox)findViewById(R.id.prec4);
         c5 = (CheckBox)findViewById(R.id.prec5);
+        safetv = (TextView)findViewById(R.id.safetv);
 
-
-
-
+//        click listner for submit button
         submitbt.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 String msg = nameet.getText().toString();
@@ -61,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("c4" , c4check);
                 intent.putExtra("c5" , c5check);
 
-//                String s1=String.valueOf(c1check);
-//                String s2=String.valueOf(c2check);
-//                String s3=String.valueOf(c3check);
-//                String s4=String.valueOf(c4check);
-//                String s5=String.valueOf(c5check);
-
-//                Toast.makeText(MainActivity.this, s1+" "+s3+" "+s4+" "+s5 , Toast.LENGTH_SHORT).show();
-
                 startActivityForResult(intent , reqKey);
             }
         });
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -104,9 +107,14 @@ public class MainActivity extends AppCompatActivity {
 
             if(checkClicked){
                 Toast.makeText(MainActivity.this, "You are safe!!!", Toast.LENGTH_LONG).show();
+
+//                safetv.setTextColor(Color.parseColor("lightGreen"));
+//                safetv.setText("You are safe!!!");
             }
             else{
                 Toast.makeText(MainActivity.this, "You are NOT SAFE!!!", Toast.LENGTH_LONG).show();
+//                safetv.setTextColor(Color.parseColor("red"));
+//                safetv.setText("You are NOT SAFE!!!");
             }
 
         }
@@ -114,4 +122,69 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presentState="onStart state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onStart state.";
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presentState="onResume state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onResume state.";
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presentState="onPause state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onPause state.";
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presentState="onStop state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onStop state.";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presentState="onDestroy state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onDestroy state.";
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presentState="onRestart state.";
+//        creating logs and state transition toast
+        Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
+        Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
+
+        prevstate = "onRestart state.";
+    }
 }
