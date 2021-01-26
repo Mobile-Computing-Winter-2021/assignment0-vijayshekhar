@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button submitbt, clearbt;
     EditText nameet;
     CheckBox c1,c2,c3,c4,c5;
+    TextView safetv;
 
     private int reqKey =0;
     private boolean checkClicked=false;
@@ -32,35 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView safetv;
 
 
-//        ------------------------------------------------------------------------------------------
+
         presentState="onCreate state.";
 //        creating logs and state transition toast
         Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
         Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
 
         prevstate = "onCreate state.";
-//----------------------------------------------------------------------------------------------------
-
-
-//        if(savedInstanceState != null){
-//
-//           safetv = (TextView)findViewById(R.id.safetv);
-//           boolean res = savedInstanceState.getBoolean("safe_status");
-//            if(res){
-//
-//                safetv.setTextColor(Color.parseColor("lightGreen"));
-//                safetv.setText("You are safe!!!");
-//            }
-//            else{
-//                safetv.setTextColor(Color.parseColor("red"));
-//                safetv.setText("You are NOT SAFE!!!");
-//            }
-//
-//        }
-
 
         setContentView(R.layout.activity_main);
 
@@ -121,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        TextView safetv;
-//        safetv = (TextView)findViewById(R.id.safetv);
-
         if(resultCode!= Activity.RESULT_OK)
             return;
         if(requestCode==reqKey){
@@ -135,13 +113,15 @@ public class MainActivity extends AppCompatActivity {
             if(checkClicked){
                 Toast.makeText(MainActivity.this, "You are safe!!!", Toast.LENGTH_LONG).show();
 
+                safetv.setText("Hurray You are safe!!!");
 //                safetv.setTextColor(Color.parseColor("lightGreen"));
-//                safetv.setText("You are safe!!!");
             }
             else{
                 Toast.makeText(MainActivity.this, "You are NOT SAFE!!!", Toast.LENGTH_LONG).show();
+
+                safetv.setText("You are NOT SAFE!!!");
 //                safetv.setTextColor(Color.parseColor("red"));
-//                safetv.setText("You are NOT SAFE!!!");
+
             }
 
         }
