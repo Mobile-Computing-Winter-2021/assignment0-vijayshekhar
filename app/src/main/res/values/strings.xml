@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HelloWorld</string>
     <string name="greeting_text">Hello World! from vijay shekhar for ass1</string>
+    <string name="name_registered">name</string>
 </resources>

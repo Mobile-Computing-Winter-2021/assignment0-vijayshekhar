@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" >
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,6 +13,24 @@
     android:gravity="center"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Submitted Details"
+        android:textColor="#9C27B0"
+        android:textColorLink="#FFFFFF"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/namereg"
+        android:editable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_registered"
+        android:textSize="18sp" />
 
 
     <TextView
@@ -24,43 +47,54 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
+
         >
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/prec1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:clickable="false"
             android:text="Wearing a mask when outside "
-            tools:ignore= "HardcodedText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/prec2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="Washing hands frequently"
             tools:ignore= "HardcodedText"
+            android:clickable="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/prec3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:clickable="false"
             android:text="Maintaining 2 feet distance  "
-            tools:ignore= "HardcodedText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/prec4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:clickable="false"
             android:text="Covering nose and mouth while sneezing and coughing "
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/prec5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:clickable="false"
             android:text="Taking health diets. "
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -71,26 +105,21 @@
         android:layout_height="wrap_content">
 
 
-<!--        <Button-->
-<!--            android:id="@+id/submit_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="back"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            tools:layout_editor_absoluteX="138dp"-->
-<!--            tools:layout_editor_absoluteY="16dp" />-->
-
         <Button
-            android:id="@+id/clear_button"
+            android:id="@+id/check_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Check"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="3dp"
-            tools:layout_editor_absoluteY="16dp" />
+            tools:layout_editor_absoluteY="16dp"
+            android:onClick="checkStatus"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 
 </LinearLayout>
+
+
+</ScrollView>
