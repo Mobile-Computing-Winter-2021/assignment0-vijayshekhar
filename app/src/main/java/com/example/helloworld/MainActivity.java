@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,17 +32,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
+//        -------------------------- Logs and state transitions------------------------------
         presentState="onCreate state.";
 //        creating logs and state transition toast
         Log.d(DEBUG_TAG,prevstate+" ---> "+ presentState);
         Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
-
         prevstate = "onCreate state.";
+// ---------------------------------------------------------------------------------------------------
 
         setContentView(R.layout.activity_main);
+
+
+//       *********************************************************
+//        if(savedInstanceState !=null){
+//            boolean res = savedInstanceState.getBoolean("safe_status");
+//            if(res){
+//
+//                safetv.setText("Hurray You are safe!!!");
+////                safetv.setTextColor(Color.parseColor("lightGreen"));
+//            }
+//            else{
+//
+//                safetv.setText("You are NOT SAFE!!!");
+////                safetv.setTextColor(Color.parseColor("red"));
+//
+//            }
+//
+//        }
+
+//      **************************************************************8
+
 
         submitbt = (Button)findViewById(R.id.submit_button);
         clearbt = (Button)findViewById(R.id.clear_button);
@@ -114,14 +132,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "You are safe!!!", Toast.LENGTH_LONG).show();
 
                 safetv.setText("Hurray You are safe!!!");
-//                safetv.setTextColor(Color.parseColor("lightGreen"));
+                safetv.setTextColor(Color.GREEN);
             }
             else{
                 Toast.makeText(MainActivity.this, "You are NOT SAFE!!!", Toast.LENGTH_LONG).show();
 
                 safetv.setText("You are NOT SAFE!!!");
-//                safetv.setTextColor(Color.parseColor("red"));
-
+                safetv.setTextColor(Color.RED);
             }
 
         }
@@ -129,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("safe_status" , checkClicked);
+    protected void onSaveInstanceState(Bundle SaveInstanceState) {
+        super.onSaveInstanceState(SaveInstanceState);
+        SaveInstanceState.putBoolean("safe_status" , checkClicked);
     }
 
     @Override
@@ -143,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
 
         prevstate = "onStart state.";
+
     }
 
     @Override
@@ -154,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, prevstate+" ---> "+ presentState, Toast.LENGTH_SHORT).show();
 
         prevstate = "onResume state.";
+
     }
 
     @Override
