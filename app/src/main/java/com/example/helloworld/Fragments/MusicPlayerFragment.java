@@ -34,8 +34,7 @@ public class MusicPlayerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_music_player, container, false);
     }
@@ -47,6 +46,8 @@ public class MusicPlayerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         SwitchCompat playPauseButton = view.findViewById(R.id.play_pause_switch);
         SwitchCompat downloadedPlayPauseButton = view.findViewById(R.id.downloaded_file_play_pause_switch);
         status = view.findViewById(R.id.status);
@@ -57,11 +58,13 @@ public class MusicPlayerFragment extends Fragment {
             startActivityForResult(new Intent(getContext(), DownloadMusicActivity.class), 201);
         });
 
+
+
         downloadedPlayPauseButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(fileDownloaded) {
+            if (fileDownloaded) {
                 Intent serviceIntent = new Intent(getContext(), MusicService.class);
                 if (isChecked) {
-                    if(isPlaying){
+                    if (isPlaying) {
                         getContext().stopService(serviceIntent);
                         playPauseButton.setButtonDrawable(R.drawable.ic_baseline_play_arrow_24);
                         playPauseButton.setChecked(false);
@@ -84,7 +87,7 @@ public class MusicPlayerFragment extends Fragment {
         playPauseButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Intent serviceIntent = new Intent(getContext(), MusicService.class);
             if (isChecked) {
-                if(isPlaying){
+                if (isPlaying) {
                     getContext().stopService(serviceIntent);
                     downloadedPlayPauseButton.setButtonDrawable(R.drawable.ic_baseline_play_arrow_24);
                     downloadedPlayPauseButton.setChecked(false);
@@ -119,7 +122,7 @@ public class MusicPlayerFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        if(isPlaying){
+        if (isPlaying) {
             Intent serviceIntent = new Intent(getContext(), MusicService.class);
             getContext().stopService(serviceIntent);
         }
