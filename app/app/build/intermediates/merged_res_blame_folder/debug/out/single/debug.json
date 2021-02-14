@@ -1,0 +1,98 @@
+[
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_stop_24.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\ic_baseline_stop_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_play_arrow_24.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\ic_baseline_play_arrow_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_pause_24.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\ic_baseline_pause_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_music_player.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\layout\\fragment_music_player.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\layout_music_player_controls.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\layout\\music_player_controls.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\raw_sample_audio.wav.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\raw\\sample_audio.wav"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_thumbnail.jpg.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\thumbnail.jpg"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_download_music.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\layout\\activity_download_music.xml"
+    },
+    {
+        "merged": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_skip_next_24.xml.flat",
+        "source": "C:\\Users\\rshrivastav\\Downloads\\mcass2-main\\mcass2-main\\app\\src\\main\\res\\drawable\\ic_baseline_skip_next_24.xml"
+    }
+]

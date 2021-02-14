@@ -1,0 +1,15 @@
+com/example/helloworld/BuildConfig.java
+ com.example.helloworld.BuildConfig
+com/example/helloworld/Services/MusicService.java
+ com.example.helloworld.Services.MusicService
+com/example/helloworld/Activities/DownloadMusicActivity.java
+ com.example.helloworld.Activities.DownloadMusicActivity
+ com.example.helloworld.Activities.DownloadMusicActivity$1
+ com.example.helloworld.Activities.DownloadMusicActivity$DownloadWebpageTask
+ com.example.helloworld.Activities.DownloadMusicActivity$DownloadWebpageTask$1
+com/example/helloworld/Utils/EffectSoundPlayer.java
+ com.example.helloworld.Utils.EffectSoundPlayer
+com/example/helloworld/Fragments/MusicPlayerFragment.java
+ com.example.helloworld.Fragments.MusicPlayerFragment
+com/example/helloworld/Activities/MainActivity.java
+ com.example.helloworld.Activities.MainActivity

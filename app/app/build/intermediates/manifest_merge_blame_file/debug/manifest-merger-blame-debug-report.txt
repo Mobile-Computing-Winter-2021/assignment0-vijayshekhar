@@ -1,0 +1,73 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.helloworld"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+12-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:6:5-77
+12-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:6:22-74
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:7:5-78
+13-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:7:22-76
+14
+15    <application
+15-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:9:5-31:19
+16        android:allowBackup="true"
+16-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:10:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.1.0] C:\Users\rshrivastav\.gradle\caches\transforms-2\files-2.1\73530a2d0c1df4b3085807c82555ce12\core-1.1.0\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:extractNativeLibs="false"
+20        android:icon="@mipmap/ic_launcher"
+20-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:11:9-43
+21        android:label="@string/app_name"
+21-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:12:9-41
+22        android:roundIcon="@mipmap/ic_launcher_round"
+22-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:13:9-54
+23        android:supportsRtl="true"
+23-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:14:9-35
+24        android:testOnly="true"
+25        android:theme="@style/Theme.HelloWorld"
+25-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:16:9-48
+26        android:usesCleartextTraffic="true" >
+26-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:15:9-44
+27        <activity android:name="com.example.helloworld.Activities.DownloadMusicActivity" />
+27-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:17:9-79
+27-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:17:19-67
+28
+29        <service
+29-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:19:9-22:39
+30            android:name="com.example.helloworld.Services.MusicService"
+30-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:20:13-50
+31            android:enabled="true"
+31-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:21:13-35
+32            android:exported="true" />
+32-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:22:13-36
+33
+34        <activity android:name="com.example.helloworld.Activities.MainActivity" >
+34-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:24:9-30:20
+34-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:24:19-58
+35            <intent-filter>
+35-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:25:13-29:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:26:17-69
+36-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:26:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:28:17-77
+38-->C:\Users\rshrivastav\Downloads\mcass2-main\mcass2-main\app\src\main\AndroidManifest.xml:28:27-74
+39            </intent-filter>
+40        </activity>
+41    </application>
+42
+43</manifest>
