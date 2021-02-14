@@ -31,13 +31,12 @@ public class MainActivity extends AppCompatActivity {
         loadFragment();
 
         IntentFilter intent = new IntentFilter();
-        intent.addAction(BatteryManager.EXTRA_BATTERY_LOW);
-//        intent.addAction(B);
-
+//        intent.addAction(BatteryManager.EXTRA_BATTERY_LOW);
+        intent.addAction("android.intent.action.BATTERY_OKAY");
+        intent.addAction("android.intent.action.BATTERY_LOW");
+        intent.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
 
         registerReceiver( receiver, intent);
-
-
     }
 
 
