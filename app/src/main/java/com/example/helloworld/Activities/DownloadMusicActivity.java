@@ -28,6 +28,8 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class DownloadMusicActivity extends AppCompatActivity {
 
+
+//    path where song is downloaded = /data/data/com.example.helloworld/files/song_download.mp3
     TextView statusText;
     TextView internetStatus;
     TextView downloadStatus;
@@ -89,8 +91,9 @@ public class DownloadMusicActivity extends AppCompatActivity {
             }
         }
 
+        status = mobileconnection_status || wificonnection_status;
         // if any mode of connection is available
-        return  mobileconnection_status || wificonnection_status;
+        return  status;
 
     }
 

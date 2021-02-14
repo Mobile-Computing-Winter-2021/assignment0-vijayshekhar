@@ -59,7 +59,7 @@ public class MusicPlayerFragment extends Fragment {
         });
 
 
-
+        // playing downloaded file
         downloadedPlayPauseButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (fileDownloaded) {
                 Intent serviceIntent = new Intent(getContext(), MusicService.class);
@@ -73,6 +73,8 @@ public class MusicPlayerFragment extends Fragment {
                     status.setText("Playing Downloaded file");
                     serviceIntent.putExtra("playDownloaded", true);
                     serviceIntent.putExtra("notificationMsg", "Playing downloaded file");
+
+                    // starting foreground service
                     ContextCompat.startForegroundService(getContext(), serviceIntent);
                     downloadedPlayPauseButton.setButtonDrawable(R.drawable.ic_baseline_stop_24);
                 } else {
@@ -84,7 +86,7 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
 
-
+        // playing static file
         playPauseButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Intent serviceIntent = new Intent(getContext(), MusicService.class);
             if (isChecked) {

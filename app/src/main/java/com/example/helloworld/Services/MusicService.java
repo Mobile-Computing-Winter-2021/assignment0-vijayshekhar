@@ -44,20 +44,19 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         boolean playDownloaded = intent.getBooleanExtra("playDownloaded", false);
-        String input = intent.getStringExtra("notificationMsg");
+        String ip_data = intent.getStringExtra("notificationMsg");
         Log.i(TAG, "Reached in start command");
-        createNotificationChannel();
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Foreground Service")
-                .setContentText(input)
-                .setSmallIcon(R.drawable.ic_baseline_play_arrow_24)
-                .setContentIntent(pendingIntent)
-                .build();
-        startForeground(1, notification);
+
+        notificationGenerate();
+        Intent intent_notif = new Intent(this, MainActivity.class);
+        PendingIntent intent_pending = PendingIntent.getActivity(this, 0, intent_notif, 0);
+
+
+        Notification foreground_service_visible = new NotificationCompat.Builder(this, CHANNEL_ID) .setContentTitle("Foreground Service visible").setContentIntent(intent_pending) .setContentText(ip_data).setSmallIcon(R.drawable.ic_baseline_play_arrow_24).build();
+
+        // starting service on foreground
+        startForeground(1, foreground_service_visible);
         if (playDownloaded) {
             try {
                 File directory = getFilesDir();
@@ -82,29 +81,32 @@ public class MusicService extends Service {
     }
 
 
-    public void onPause() {
-        if (player != null && player.isPlaying()) {
-            player.pause();
-        }
-        Log.i(TAG, "onPause()");
-    }
+//    public void onPause() {
+//        if (player != null && player.isPlaying()) {
+//            player.pause();
+//        }
+//        Log.i(TAG, "onPause(), player paused");
+//    }
 
     @Override
     public void onDestroy() {
+
+        // releasing all resources
         player.release();
-        Log.i(TAG, "onCreate() , service stopped...");
+        Log.i(TAG, "onDestroy() , service stopped and resources released...");
     }
 
-
-    private void createNotificationChannel() {
+    // to create notification
+    private void notificationGenerate() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel serviceChannel = new NotificationChannel(
+            NotificationChannel notificationChannel = new NotificationChannel(
                     CHANNEL_ID,
                     "Foreground Service Channel",
                     NotificationManager.IMPORTANCE_DEFAULT
             );
             NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(serviceChannel);
+
+            manager.createNotificationChannel(notificationChannel);
         }
     }
 
