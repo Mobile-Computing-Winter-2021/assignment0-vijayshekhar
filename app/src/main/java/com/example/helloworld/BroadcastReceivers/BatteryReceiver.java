@@ -9,24 +9,12 @@ import android.widget.Toast;
 
 public class BatteryReceiver extends BroadcastReceiver {
 
-    //TODO: POWER_DISCONNECTED, BATTERY_OKAY
+    // Done : POWER_DISCONNECTED, BATTERY_OKAY
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         String action_received = intent.getAction();
-
-//        if(Intent.ACTION_BATTERY_LOW.equalsIgnoreCase((String)intent.getAction())){
-//
-//           Toast toast =  Toast.makeText(context , "Battery low !!!", Toast.LENGTH_LONG);
-//           Log.i("INFO_TAG", "Battery level low");
-//           toast.show();
-//        }
-//        else{
-//            Toast toast =  Toast.makeText(context , "Battery okay !!!", Toast.LENGTH_LONG);
-//            Log.i("INFO_TAG" , "Battery level okay");
-//            toast.show();
-//        }
 
         if(action_received.contains("BATTERY_LOW")){
 

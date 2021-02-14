@@ -84,6 +84,7 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
 
+
         playPauseButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Intent serviceIntent = new Intent(getContext(), MusicService.class);
             if (isChecked) {

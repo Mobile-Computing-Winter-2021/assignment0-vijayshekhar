@@ -15,6 +15,8 @@ import com.example.helloworld.R;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    // broadcast receiver class object
     BatteryReceiver receiver = new BatteryReceiver();
 
 
@@ -22,15 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        loading the fragment ui on main activity
         loadFragment();
 
-//        IntentFilter intent = new IntentFilter();
-////        intent.addAction(BatteryManager.EXTRA_BATTERY_LOW);
-//        intent.addAction("android.intent.action.BATTERY_OKAY");
-//        intent.addAction("android.intent.action.BATTERY_LOW");
-//        intent.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
-//
-//        registerReceiver( receiver, intent);
     }
 
     @Override
@@ -38,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         IntentFilter intent = new IntentFilter();
+
+//        broadcast actions for battery okay , low and power disconnected
         intent.addAction("android.intent.action.BATTERY_OKAY");
         intent.addAction("android.intent.action.BATTERY_LOW");
         intent.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
 
+        // registering receiver
         registerReceiver( receiver, intent);
     }
 
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+        // removing receiver
         unregisterReceiver(receiver);
     }
 
