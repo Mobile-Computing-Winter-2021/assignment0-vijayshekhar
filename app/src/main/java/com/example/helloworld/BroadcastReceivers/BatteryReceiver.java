@@ -30,20 +30,20 @@ public class BatteryReceiver extends BroadcastReceiver {
 
         if(action_received.contains("BATTERY_LOW")){
 
-            Toast.makeText(context , "Battery is low ", Toast.LENGTH_LONG).show();
-            Log.i("INFO_TAG" , "battery level low");
+            Toast.makeText(context , "Battery is low! ", Toast.LENGTH_LONG).show();
+            Log.d("INFO_TAG" , "battery level low");
         }
 
         if(action_received.contains("BATTERY_OKAY")){
 
             Toast.makeText(context , "Battery is low ", Toast.LENGTH_LONG).show();
-            Log.i("INFO_TAG" , "battery level low");
+            Log.d("INFO_TAG" , "battery level okay");
         }
 
         if(action_received.contains("POWER_DISCONNECTED")){
 
-            Toast.makeText(context , "Power is disconnected  ", Toast.LENGTH_LONG).show();
-            Log.i("INFO_TAG" , "Power Disconnected ");
+            Toast.makeText(context , "Power is disconnected! ", Toast.LENGTH_LONG).show();
+            Log.d("INFO_TAG" , "Power Disconnected ");
         }
 
 

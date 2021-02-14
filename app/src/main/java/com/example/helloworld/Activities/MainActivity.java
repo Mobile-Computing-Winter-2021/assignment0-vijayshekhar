@@ -1,23 +1,17 @@
 package com.example.helloworld.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ApplicationErrorReport;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+
 import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Bundle;
 
 
 import com.example.helloworld.BroadcastReceivers.BatteryReceiver;
 import com.example.helloworld.Fragments.MusicPlayerFragment;
 import com.example.helloworld.R;
-import com.example.helloworld.Services.MusicService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         loadFragment();
 
+//        IntentFilter intent = new IntentFilter();
+////        intent.addAction(BatteryManager.EXTRA_BATTERY_LOW);
+//        intent.addAction("android.intent.action.BATTERY_OKAY");
+//        intent.addAction("android.intent.action.BATTERY_LOW");
+//        intent.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
+//
+//        registerReceiver( receiver, intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         IntentFilter intent = new IntentFilter();
-//        intent.addAction(BatteryManager.EXTRA_BATTERY_LOW);
         intent.addAction("android.intent.action.BATTERY_OKAY");
         intent.addAction("android.intent.action.BATTERY_LOW");
         intent.addAction("android.intent.action.ACTION_POWER_DISCONNECTED");
@@ -39,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver( receiver, intent);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(receiver);
+    }
 
     private void loadFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -48,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-        unregisterReceiver(receiver);
-    }
+
+
 }
