@@ -74,21 +74,16 @@ public class DownloadMusicActivity extends AppCompatActivity {
 
 
         if (networkStatus != null) {
-            // connected to the internet
-            switch (networkStatus.getType()) {
 
                 // case for mobile data
-                case ConnectivityManager.TYPE_MOBILE:
+                if (networkStatus.getType() ==  ConnectivityManager.TYPE_MOBILE) {
                     mobileconnection_status = true;
-                    break;
-                // case for wifi connection
-                case ConnectivityManager.TYPE_WIFI:
-                    wificonnection_status = true;
-                    break;
+                }
 
-                default:
-                    break;
-            }
+                // case for wifi connection
+                if(networkStatus.getType() == ConnectivityManager.TYPE_WIFI) {
+                    wificonnection_status = true;
+                }
         }
 
         status = mobileconnection_status || wificonnection_status;
