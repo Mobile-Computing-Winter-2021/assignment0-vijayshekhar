@@ -14,8 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.helloworld.Activities.StudentDetailsActivity;
 import com.example.helloworld.R;
-import com.example.helloworld.Students;
+import com.example.helloworld.Models.Students;
 import com.example.helloworld.adaptors.StudentListRecyclerAdapter;
 
 import java.util.ArrayList;
@@ -96,8 +97,10 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     public void onDetailsClick(int position) {
 
 //        mNotes.get(Position)
-//        Intent intent = new Intent(this , DetailsFragment.class);
-//        startActivity(intent);
         Log.d(TAG, "onDetailsClicked: !!!");
+        Intent intent = new Intent(getContext(), StudentDetailsActivity.class);
+        startActivity(intent);
+
+
     }
 }
