@@ -1,5 +1,6 @@
 package com.example.helloworld.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StudentListFragment extends Fragment {
+public class StudentListFragment extends Fragment implements StudentListRecyclerAdapter.OnDetailsListener {
 
 
     public StudentListFragment() {
@@ -29,6 +31,7 @@ public class StudentListFragment extends Fragment {
 
     RecyclerView recyclerView;
     List<Students> itemList;
+    private static final String TAG = "StudentListFragment";
 
     @Nullable
     @Override
@@ -43,8 +46,8 @@ public class StudentListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 //        initData();
-
-        recyclerView.setAdapter(new StudentListRecyclerAdapter(initData()));
+        //TODO  Modify this new StudentListRecyclerAdapter(initData(), this)
+        recyclerView.setAdapter(new StudentListRecyclerAdapter(initData(), this));
 
         return view;
     }
@@ -89,5 +92,12 @@ public class StudentListFragment extends Fragment {
     }
 
 
+    @Override
+    public void onDetailsClick(int position) {
 
+//        mNotes.get(Position)
+//        Intent intent = new Intent(this , DetailsFragment.class);
+//        startActivity(intent);
+        Log.d(TAG, "onDetailsClicked: !!!");
     }
+}

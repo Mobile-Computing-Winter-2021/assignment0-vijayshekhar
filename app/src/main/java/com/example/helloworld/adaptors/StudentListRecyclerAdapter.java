@@ -17,16 +17,20 @@ import java.util.List;
 public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentListRecyclerAdapter.ViewHolder> {
 
     List<Students> itemList1;
-    public StudentListRecyclerAdapter(List<Students> itemList)  {
+    private OnDetailsListener onDetailsListener1;
+
+
+    public StudentListRecyclerAdapter(List<Students> itemList, OnDetailsListener onDetailsListener)  {
 
         this.itemList1 = itemList;
+        this.onDetailsListener1 = onDetailsListener;
     }
 
     @NonNull
     @Override
     public StudentListRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_items,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, onDetailsListener1);
 
         return viewHolder;
     }
@@ -44,18 +48,34 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         return itemList1.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         TextView nameText;
         TextView rollnoText;
 
-        public ViewHolder(@NonNull View itemView) {
+        OnDetailsListener onDetailsListener;
+
+        public ViewHolder(@NonNull View itemView , OnDetailsListener onDetailsListener) {
             super(itemView);
 
             nameText = itemView.findViewById(R.id.name_tv);
             rollnoText = itemView.findViewById(R.id.rollno_tv);
+            this.onDetailsListener = onDetailsListener;
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            onDetailsListener.onDetailsClick(getAdapterPosition());
 
         }
     }
+
+    public interface OnDetailsListener{
+        void onDetailsClick(int position);
+
+    }
+
 }
