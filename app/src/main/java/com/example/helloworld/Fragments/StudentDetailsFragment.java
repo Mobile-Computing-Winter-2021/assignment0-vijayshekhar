@@ -1,5 +1,6 @@
 package com.example.helloworld.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +24,9 @@ public class StudentDetailsFragment extends Fragment {
     String name1;
     String branch1;
     String rollno1;
+    private Boolean update = false;
 
-    private int reqKey =0;
+
 
     EditText rollnoet, nameet , branchet;
     Button submitbt;
@@ -69,7 +71,34 @@ public class StudentDetailsFragment extends Fragment {
 
         submitbt.setOnClickListener(v ->{
             Log.d(TAG, "onViewCreated , submit clicked ");
+            update = Boolean.TRUE;
+
+            //getting user input (updation)
+            String name2 = nameet.getText().toString();
+            String branch2 = branchet.getText().toString();
+
+            // intent for result
+            Intent update_intent = new Intent();
+
+
+
+            if(update){
+                update_intent.putExtra("name update", nameet.getText().toString());
+                update_intent.putExtra("branch update", branchet.getText().toString());
+                update_intent.putExtra("rollno", rollno1);
+
+            }
+            else{
+                update_intent.putExtra("name update", name1);
+                update_intent.putExtra("branch update", branch1);
+                update_intent.putExtra("rollno", rollno1);
+            }
+
+            getActivity().setResult(Activity.RESULT_OK, update_intent);
+
         });
 
+
     }
+
 }

@@ -1,6 +1,8 @@
 package com.example.helloworld.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.helloworld.Activities.StudentDetailsActivity;
 import com.example.helloworld.R;
@@ -33,6 +36,8 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     RecyclerView recyclerView;
     List<Students> itemList;
     private static final String TAG = "StudentListFragment";
+    private int reqKey =0;
+    Students temp;
 
     @Nullable
     @Override
@@ -50,7 +55,10 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         //TODO  Modify this new StudentListRecyclerAdapter(initData(), this)
         recyclerView.setAdapter(new StudentListRecyclerAdapter(initData(), this));
 
+        Log.d(TAG, "onCreateView: reached");
+        
         return view;
+        
     }
 
     private List<Students> initData() {
@@ -97,6 +105,7 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     public void onDetailsClick(Students student) {
 
 
+
         Log.d(TAG, "onDetailsClicked: !!!");
 
 //        Log.d(TAG, "clicked index details:  "+ itemList.get(student));
@@ -107,7 +116,40 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         intent.putExtra("branch", student.getBranch1());
         intent.putExtra("rollno", student.getRollno1());
 
-        startActivity(intent);
+//        startActivity(intent);
+        startActivityForResult(intent, reqKey);
+        temp = student;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode!= Activity.RESULT_OK)
+            return;
+        if(requestCode==reqKey){
+            if(data==null){
+                return;
+            }
+
+
+            temp.setName1(data.getStringExtra("name update"));
+            temp.setBranch1(data.getStringExtra("branch update"));
+
+            Log.d(TAG, "onActivityResult: "+temp.getBranch1()+" "+temp.getName1()+" "+temp.getRollno1());
+
+
+            for (Students s: itemList){
+                if(s.getRollno1() != null && s.getRollno1().contains(temp.getRollno1())){
+                    s.setName1(temp.getName1());
+                    s.setBranch1(temp.getBranch1());
+                }
+            }
+        }
+
+        Log.d(TAG, "onActivityResult: setAdapter called");
+        recyclerView.setAdapter(new StudentListRecyclerAdapter(itemList, this));
 
     }
 }
