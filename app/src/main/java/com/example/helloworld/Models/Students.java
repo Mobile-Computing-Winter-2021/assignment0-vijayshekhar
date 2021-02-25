@@ -1,5 +1,7 @@
 package com.example.helloworld.Models;
 
+import java.io.Serializable;
+
 public class Students {
 
     String branch1;

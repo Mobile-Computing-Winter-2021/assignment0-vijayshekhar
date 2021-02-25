@@ -29,7 +29,7 @@
             android:layout_margin="15dp"/>
 
         <EditText
-            android:id="@+id/namereg"
+            android:id="@+id/rollno_et"
             android:editable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,8 +69,8 @@
                     tools:ignore="HardcodedText"
                     android:layout_margin="15dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/prec1"
+                <EditText
+                    android:id="@+id/name_et"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
@@ -97,8 +97,8 @@
                     tools:ignore="HardcodedText"
                     android:layout_margin="15dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/prec2"
+                <EditText
+                    android:id="@+id/branch_et"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
@@ -122,7 +122,7 @@
 
 
             <Button
-                android:id="@+id/check_button"
+                android:id="@+id/submit_bt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"

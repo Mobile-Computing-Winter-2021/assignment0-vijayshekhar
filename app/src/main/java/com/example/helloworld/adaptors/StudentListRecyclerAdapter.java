@@ -41,12 +41,20 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         holder.nameText.setText(itemList1.get(position).getName1());
         holder.rollnoText.setText(itemList1.get(position).getRollno1());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDetailsListener1.onDetailsClick(itemList1.get(position));
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return itemList1.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
@@ -68,13 +76,15 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
 
         @Override
         public void onClick(View v) {
-            onDetailsListener.onDetailsClick(getAdapterPosition());
+
 
         }
     }
 
     public interface OnDetailsListener{
-        void onDetailsClick(int position);
+
+
+        void onDetailsClick(Students s1  );
 
     }
 
