@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.StudentDetailsActivity" />
+        <activity android:name=".Activities.StudentDetailsActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
     </application>
 
 </manifest>
