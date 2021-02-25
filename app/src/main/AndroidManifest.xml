@@ -12,7 +12,7 @@
 
 
 
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.MainActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -36,74 +36,33 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     RecyclerView recyclerView;
     List<Students> itemList;
     private static final String TAG = "StudentListFragment";
-    private int reqKey =0;
+    private int reqKey = 0;
     Students temp;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
 
 
-        View view=inflater.inflate(R.layout.student_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.student_list_fragment, container, false);
 
-        recyclerView=view.findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
+        recyclerView = view.findViewById(R.id.container_recycle);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        initData();
         //TODO  Modify this new StudentListRecyclerAdapter(initData(), this)
-        recyclerView.setAdapter(new StudentListRecyclerAdapter(initData(), this));
+        recyclerView.setAdapter(new StudentListRecyclerAdapter(populateRecyclerView(), this));
 
         Log.d(TAG, "onCreateView: reached");
-        
+
         return view;
-        
-    }
 
-    private List<Students> initData() {
-
-        itemList=new ArrayList<>();
-        itemList.add(new Students("student 1","branch 1","rollno 1"));
-        itemList.add(new Students("student 2"," branch 2","rollno 2"));
-        itemList.add(new Students("student 3"," branch 3","rollno 3"));
-        itemList.add(new Students("student 4"," branch 4","rollno 4"));
-        itemList.add(new Students("student 5"," branch 5","rollno 5"));
-        itemList.add(new Students("student 6"," branch 6","rollno 6"));
-        itemList.add(new Students("student 7"," branch 7","rollno 7"));
-        itemList.add(new Students("student 8"," branch 8","rollno 8"));
-        itemList.add(new Students("student 9"," branch 9","rollno 9"));
-        itemList.add(new Students("student 10"," branch 10","rollno 10"));
-        itemList.add(new Students("student 11"," branch 11","rollno 11"));
-        itemList.add(new Students("student 12"," branch 12","rollno 12"));
-        itemList.add(new Students("student 13"," branch 13","rollno 13"));
-        itemList.add(new Students("student 14"," branch 14","rollno 14"));
-        itemList.add(new Students("student 15"," branch 15","rollno 15"));
-        itemList.add(new Students("student 16"," branch 16","rollno 16"));
-        itemList.add(new Students("student 17"," branch 17","rollno 17"));
-        itemList.add(new Students("student 18"," branch 18","rollno 18"));
-        itemList.add(new Students("student 19"," branch 19","rollno 19"));
-        itemList.add(new Students("student 20"," branch 20","rollno 20"));
-        itemList.add(new Students("student 21"," branch 21","rollno 21"));
-        itemList.add(new Students("student 22"," branch 22","rollno 22"));
-        itemList.add(new Students("student 23"," branch 23","rollno 23"));
-        itemList.add(new Students("student 24"," branch 24","rollno 24"));
-        itemList.add(new Students("student 25"," branch 25","rollno 25"));
-        itemList.add(new Students("student 26"," branch 26","rollno 26"));
-        itemList.add(new Students("student 27"," branch 27","rollno 27"));
-        itemList.add(new Students("student 28"," branch 28","rollno 28"));
-        itemList.add(new Students("student 29"," branch 29","rollno 29"));
-        itemList.add(new Students("student 30"," branch 30","rollno 30"));
-
-
-
-        return itemList;
     }
 
 
     @Override
     public void onDetailsClick(Students student) {
-
 
 
         Log.d(TAG, "onDetailsClicked: !!!");
@@ -126,10 +85,10 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode!= Activity.RESULT_OK)
+        if (resultCode != Activity.RESULT_OK)
             return;
-        if(requestCode==reqKey){
-            if(data==null){
+        if (requestCode == reqKey) {
+            if (data == null) {
                 return;
             }
 
@@ -137,11 +96,11 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
             temp.setName1(data.getStringExtra("name update"));
             temp.setBranch1(data.getStringExtra("branch update"));
 
-            Log.d(TAG, "onActivityResult: "+temp.getBranch1()+" "+temp.getName1()+" "+temp.getRollno1());
+            Log.d(TAG, "onActivityResult: " + temp.getBranch1() + " " + temp.getName1() + " " + temp.getRollno1());
 
 
-            for (Students s: itemList){
-                if(s.getRollno1() != null && s.getRollno1().contains(temp.getRollno1())){
+            for (Students s : itemList) {
+                if (s.getRollno1() != null && s.getRollno1().contains(temp.getRollno1())) {
                     s.setName1(temp.getName1());
                     s.setBranch1(temp.getBranch1());
                 }
@@ -152,4 +111,19 @@ public class StudentListFragment extends Fragment implements StudentListRecycler
         recyclerView.setAdapter(new StudentListRecyclerAdapter(itemList, this));
 
     }
+
+    private List<Students> populateRecyclerView() {
+
+        itemList = new ArrayList<>();
+        int i =0;
+        String t1;
+        for(i =0 ; i<31; i++){
+            t1 = String.valueOf(i);
+            itemList.add(new Students("student "+t1, "branch "+t1, "rollno "+t1));
+
+        }
+
+        return itemList;
+    }
+
 }

@@ -22,14 +22,6 @@ public class StudentDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: reached!!!");
         setContentView(R.layout.activity_student_details);
 
-        // retrieving the position of the clicked item
-//        String pos = getIntent().getStringExtra("clicked index");
-//        Log.d(TAG, "index received = "+pos);
-
-        String name1 = getIntent().getStringExtra("name") ;
-        String branch1 = getIntent().getStringExtra("branch") ;
-        String rollno1 = getIntent().getStringExtra("rollno") ;
-        
         loadFragment();
     }
 

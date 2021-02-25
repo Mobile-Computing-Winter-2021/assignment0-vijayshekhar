@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -95,6 +96,8 @@ public class StudentDetailsFragment extends Fragment {
             }
 
             getActivity().setResult(Activity.RESULT_OK, update_intent);
+            Log.d(TAG, "onViewCreated, result submitted back to StudentListFragment  ");
+            Toast.makeText(getContext() , "Details Updated!", Toast.LENGTH_SHORT).show();
 
         });
 

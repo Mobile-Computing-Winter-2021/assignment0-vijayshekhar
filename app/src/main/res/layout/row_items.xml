@@ -5,40 +5,41 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="6dp">
 
         <LinearLayout
             android:id="@+id/layout_id1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@android:color/holo_blue_light"
+            android:paddingVertical="5dp"
+            >
 
 
             <TextView
                 android:id="@+id/name_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="Name"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+
+                />
 
             <TextView
                 android:id="@+id/rollno_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="0"
                 android:text="Roll No"
                 android:paddingLeft="50dp"
                 android:paddingEnd="55dp"
-
+                android:textColor="@android:color/black"
                 />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/branch_tv"-->
-            <!--                android:layout_width="fill_parent"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Branch" />-->
 
         </LinearLayout>
 

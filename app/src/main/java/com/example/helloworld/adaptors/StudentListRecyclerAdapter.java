@@ -81,6 +81,7 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         }
     }
 
+
     public interface OnDetailsListener{
 
 
