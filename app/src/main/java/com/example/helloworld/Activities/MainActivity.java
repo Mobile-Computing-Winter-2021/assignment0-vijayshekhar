@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor sAccelerometer, sGPS, slinearAcc, sLight, sTemperature, sProximity;
     Boolean bacc, bgps, blinacc, blight, btemp, bprox = false;
     SensorDatabase sensorDatabase;
+    Long last_time=  System.currentTimeMillis();
+
+    float x_last = 0.0f, y_last =0.0f, z_last = 0.0f;
 
     private static final String TAG = "SensorActivity";
 
@@ -91,7 +95,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if (isChecked) {
                 bacc = true;
-                sensorManager.registerListener(this, sAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+
+                sensorManager.registerListener(this, sAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
             } else {
                 bacc = false;
                 sensorManager.unregisterListener(this);
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if (isChecked) {
                 blinacc = true;
-                sensorManager.registerListener(this, slinearAcc, SensorManager.SENSOR_DELAY_FASTEST);
+                sensorManager.registerListener(this, slinearAcc, SensorManager.SENSOR_DELAY_NORMAL);
             } else {
                 blinacc = false;
                 sensorManager.unregisterListener(this);
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if(isChecked){
                 blight = true;
-                sensorManager.registerListener(this,sLight,SensorManager.SENSOR_DELAY_FASTEST);
+                sensorManager.registerListener(this,sLight,SensorManager.SENSOR_DELAY_NORMAL);
             }
             else{
                 blight = false;
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if(isChecked){
                 btemp = true;
-                sensorManager.registerListener(this,sTemperature,SensorManager.SENSOR_DELAY_FASTEST);
+                sensorManager.registerListener(this,sTemperature,SensorManager.SENSOR_DELAY_NORMAL);
 //                Toast.makeText(this, "temp checked on", Toast.LENGTH_SHORT).show();
             }
             else{
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if(isChecked){
                 bprox = true;
-                sensorManager.registerListener(this,sProximity,SensorManager.SENSOR_DELAY_FASTEST);
+                sensorManager.registerListener(this,sProximity,SensorManager.SENSOR_DELAY_NORMAL);
             }
             else{
                 bprox = false;
@@ -218,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor = event.sensor;
@@ -229,6 +233,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             float y = event.values[1];
             float z = event.values[2];
 
+            motionDetection(x,y,z);
+
             x = roundFloat(x);
             y = roundFloat(y);
             z = roundFloat(z);
@@ -236,11 +242,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Log.d(TAG, "onSensorChanged: Accelerometer"+"x="+x+", y="+y+", z="+z);
 
-//            motionDetection(x,y,z);
 
             AccelerometerEntity accelerometerEntity = new AccelerometerEntity(x,y,z,System.currentTimeMillis());
 
             sensorDatabase.dao().accDataInsert(accelerometerEntity);
+
 
 
         }
@@ -288,12 +294,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void motionDetection(float x,float y,float z) {
+        float present_sum = x+y+z;
+        TextView tv = findViewById(R.id.motion_status);
+        Long time_present = System.currentTimeMillis();
 
-        List<AccelerometerEntity> lastPos = sensorDatabase.dao().getAccData();
-        int index = lastPos.size() -1;
-        float x_prev = lastPos.get(index).getX();
-        float y_prev = lastPos.get(index).getY();
-        float z_prev = lastPos.get(index).getZ();
+        if ((time_present - last_time) > 1000){
+            long timeDiff = time_present - last_time;
+            last_time = time_present;
+
+            float velocity = (present_sum - x_last - y_last -z_last)/timeDiff * 6000;
+            if (velocity > 0.5){
+                Log.d(TAG, "motionDetection: Moving !!");
+                tv.setText("Moving");
+                tv.setTextColor(Color.parseColor("#FF03DAC5"));
+//                Toast.makeText(this,"Moving", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Log.d(TAG, "motionDetection: Stationary !!");
+                tv.setText("Stationary !!");
+                tv.setTextColor(Color.parseColor("#FF0000"));
+//                Toast.makeText(this,"Stationary !!", Toast.LENGTH_SHORT).show();
+            }
+
+            x_last = x;
+            y_last = y;
+            z_last = z;
+        }
 
     }
 
