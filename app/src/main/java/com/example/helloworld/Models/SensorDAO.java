@@ -24,8 +24,8 @@ public interface SensorDAO {
     List<AccelerometerEntity> getAccData();
 
 
-    @Query("SELECT * FROM AccelerometerEntity where datetime(time) >= datetime('now','-1 Hour' ) ")
-    List<AccelerometerEntity> getAccDataPast1Hour();
+    @Query("SELECT * FROM AccelerometerEntity where time >= :present_time  ")
+    List<AccelerometerEntity> getAccDataPast1Hour(Long present_time);
 
 
     @Insert
@@ -35,8 +35,8 @@ public interface SensorDAO {
     List<TemperatureEntity> getTempData();
 
 
-    @Query("SELECT * FROM TemperatureEntity where datetime(time) >= datetime('now','-1 Hour' ) ")
-    List<TemperatureEntity> getTempDataPast1Hour();
+    @Query("SELECT * FROM TemperatureEntity  where time >= :present_time ")
+    List<TemperatureEntity> getTempDataPast1Hour(Long present_time);
 
     @Insert
     public void gpsDataInsert(GPSEntity gpsEntity);

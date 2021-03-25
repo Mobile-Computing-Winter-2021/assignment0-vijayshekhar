@@ -174,7 +174,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         accavg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccData();
+//                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccData();
+                Long curTime = System.currentTimeMillis() - 3600000;
+                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccDataPast1Hour(curTime);
+
 
                 float x = 0.0f,y=0.0f,z= 0.0f;
 
@@ -204,7 +207,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tempavg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempData();
+                Long curTime = System.currentTimeMillis() - 3600000;
+//                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempData();
+                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempDataPast1Hour(curTime);
                 float x = 0.0f;
                 for (int i =0; i<temperatureEntityList.size(); i++){
                     x += temperatureEntityList.get(i).getTemp();
