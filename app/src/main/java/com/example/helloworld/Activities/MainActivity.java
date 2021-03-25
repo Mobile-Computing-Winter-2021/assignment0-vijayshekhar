@@ -22,6 +22,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -175,31 +178,47 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
 //                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccData();
+//                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccDataPast1Hour(curTime);
+
                 Long curTime = System.currentTimeMillis() - 3600000;
-                List<AccelerometerEntity> accData = sensorDatabase.dao().getAccDataPast1Hour(curTime);
+                RadioButton axesRadio;
+                RadioGroup radioGroup = findViewById(R.id.radioGroup);
 
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                axesRadio = (RadioButton) findViewById(selectedId);
+                try {
+                    String s = axesRadio.getText().toString();
+                    float avg = 0.0f;
+                    // if along x axis
+                    if(s.equalsIgnoreCase("X axis")){
+                        avg = sensorDatabase.dao().getAccDataGenX(curTime);
+                        accview.setText(String.valueOf( roundFloat(avg))+" X axis");
+                    }
 
-                float x = 0.0f,y=0.0f,z= 0.0f;
+                    // if along y axis
+                    if(s.equalsIgnoreCase("Y axis")){
+                        avg = sensorDatabase.dao().getAccDataGenY(curTime);
+                        accview.setText(String.valueOf( roundFloat(avg))+" Y axis");
+                    }
 
-                for (int i =0; i<accData.size(); i++){
-                    x += accData.get(i).getX();
-                    y += accData.get(i).getY();
-                    z += accData.get(i).getZ();
+                    // if along z axis
+                    if(s.equalsIgnoreCase("Z axis")){
+                        avg = sensorDatabase.dao().getAccDataGenZ(curTime);
+                        accview.setText(String.valueOf( roundFloat(avg))+" Z axis");
+                    }
 
-                    Log.d("SENSOR_DATA" , ""+(accData.get(i).getX() +": "+
-                            accData.get(i).getY()+": "+ accData.get(i).getZ()+": "+
-                            accData.get(i).getTime()));
+                    // if none selected
+                    if (selectedId == -1 || s.equalsIgnoreCase("All Axes")) {
+                        float xavg = sensorDatabase.dao().getAccDataGenX(curTime);
+                        float yavg = sensorDatabase.dao().getAccDataGenY(curTime);
+                        float zavg = sensorDatabase.dao().getAccDataGenZ(curTime);
+                        float res = roundFloat((xavg+ yavg+ zavg) /3);
+                        accview.setText(String.valueOf( res)+"  all axes");
+                    }
+                }catch (NullPointerException e){
 
+                    Toast.makeText(MainActivity.this, "Select at least one axis!!!", Toast.LENGTH_SHORT).show();
                 }
-                float xavg = x/accData.size();
-                float yavg = y/accData.size();
-                float zavg = z/accData.size();
-
-                float res = roundFloat((xavg+ yavg+ zavg) /3);
-
-
-                accview.setText(String.valueOf( res) );
-
 
             }
         });

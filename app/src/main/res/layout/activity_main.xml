@@ -12,50 +12,56 @@
     <Button
         android:id="@+id/acc_avg_button"
         android:layout_width="0dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginBottom="144dp"
         android:text="accelerometer"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_avg_button"
-        app:layout_constraintEnd_toEndOf="@+id/y_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/lin_accs"
         app:layout_constraintStart_toStartOf="@+id/temp_avg_button"
-        app:layout_constraintTop_toTopOf="@+id/x_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/temps" />
 
     <Button
         android:id="@+id/temp_avg_button"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="37dp"
         android:layout_marginEnd="41dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="36dp"
         android:text="temperature"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/motion_status"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_result_textview" />
 
     <TextView
         android:id="@+id/temp_result_textview"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="40dp"
         android:text="_________"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_avg_button"
-        app:layout_constraintEnd_toEndOf="@+id/acc_result_textview"
-        app:layout_constraintStart_toStartOf="@+id/z_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/temp_avg_button" />
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/acc_avg_button"
+        app:layout_constraintTop_toBottomOf="@+id/acc_result_textview" />
 
     <TextView
         android:id="@+id/acc_result_textview"
         android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="29dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="4dp"
         android:text="_______"
-        app:layout_constraintBaseline_toBaselineOf="@+id/acc_avg_button"
+        app:layout_constraintBottom_toBottomOf="@+id/acc_avg_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/acc_avg_button" />
+        app:layout_constraintStart_toEndOf="@+id/acc_avg_button"
+        app:layout_constraintTop_toTopOf="@+id/acc_avg_button" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/accs"
@@ -71,10 +77,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
         android:text="linear-acceleration"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accs" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/lights"
+        app:layout_constraintEnd_toStartOf="@+id/lights"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/avg_title_text"
@@ -91,30 +98,36 @@
         android:id="@+id/temps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="2dp"
         android:text="Temperature"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/lin_accs"
         app:layout_constraintTop_toBottomOf="@+id/lin_accs" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/lights"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginEnd="59dp"
         android:text="Light"
-        app:layout_constraintEnd_toEndOf="@+id/gpss"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/accs"
         app:layout_constraintTop_toBottomOf="@+id/gpss" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/gpss"
-        android:layout_width="90dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="11dp"
         android:text="GPS"
         app:layout_constraintBottom_toBottomOf="@+id/accs"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="@+id/lights"
         app:layout_constraintTop_toTopOf="@+id/accs" />
 
     <androidx.appcompat.widget.SwitchCompat
@@ -131,42 +144,14 @@
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
         android:layout_marginTop="20dp"
         android:text="Sensors switch"
         android:textColor="@android:color/holo_green_light"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/x_checkbox"
-        app:layout_constraintStart_toStartOf="@+id/temps"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/y_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="11dp"
-        android:text="Y axis"
-        app:layout_constraintStart_toEndOf="@+id/x_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/avg_title_text" />
-
-    <CheckBox
-        android:id="@+id/x_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="11dp"
-        android:text="X axis"
-        app:layout_constraintStart_toStartOf="@+id/avg_title_text"
-        app:layout_constraintTop_toBottomOf="@+id/avg_title_text" />
-
-    <CheckBox
-        android:id="@+id/z_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:text="Z axis"
-        app:layout_constraintBaseline_toBaselineOf="@+id/y_checkbox"
-        app:layout_constraintStart_toEndOf="@+id/y_checkbox" />
 
     <TextView
         android:id="@+id/textView"
@@ -174,7 +159,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="52dp"
         android:text="Motion Status:"
         android:textColor="@android:color/black"
         android:textSize="16sp"
@@ -185,12 +170,61 @@
     <TextView
         android:id="@+id/motion_status"
         android:layout_width="131dp"
-        android:layout_height="24dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="1dp"
         android:text="status"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="34dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/acc_result_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/avg_title_text">
+
+        <RadioButton
+            android:id="@+id/x_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X axis"
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="319dp" />
+
+        <RadioButton
+            android:id="@+id/y_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y axis"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="319dp" />
+
+        <RadioButton
+            android:id="@+id/z_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Z axis"
+            tools:layout_editor_absoluteX="259dp"
+            tools:layout_editor_absoluteY="319dp" />
+
+        <RadioButton
+            android:id="@+id/all_checkbox"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All Axes" />
+
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

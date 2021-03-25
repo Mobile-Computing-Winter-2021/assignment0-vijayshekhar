@@ -27,6 +27,13 @@ public interface SensorDAO {
     @Query("SELECT * FROM AccelerometerEntity where time >= :present_time  ")
     List<AccelerometerEntity> getAccDataPast1Hour(Long present_time);
 
+    @Query("SELECT x from AccelerometerEntity where time >= :present_time")
+    Float getAccDataGenX(Long present_time);
+    @Query("SELECT y from AccelerometerEntity where time >= :present_time")
+    Float getAccDataGenY(Long present_time);
+    @Query("SELECT z from AccelerometerEntity where time >= :present_time")
+    Float getAccDataGenZ(Long present_time);
+
 
     @Insert
     public void tempDataInsert(TemperatureEntity temperatureEntity);
