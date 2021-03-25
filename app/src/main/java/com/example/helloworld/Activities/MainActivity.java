@@ -233,7 +233,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             y = roundFloat(y);
             z = roundFloat(z);
 
+
             Log.d(TAG, "onSensorChanged: Accelerometer"+"x="+x+", y="+y+", z="+z);
+
+//            motionDetection(x,y,z);
+
             AccelerometerEntity accelerometerEntity = new AccelerometerEntity(x,y,z,System.currentTimeMillis());
 
             sensorDatabase.dao().accDataInsert(accelerometerEntity);
@@ -280,6 +284,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sensorDatabase.dao().proxDataInsert(proximityEntity);
         }
 
+
+    }
+
+    private void motionDetection(float x,float y,float z) {
+
+        List<AccelerometerEntity> lastPos = sensorDatabase.dao().getAccData();
+        int index = lastPos.size() -1;
+        float x_prev = lastPos.get(index).getX();
+        float y_prev = lastPos.get(index).getY();
+        float z_prev = lastPos.get(index).getZ();
 
     }
 
