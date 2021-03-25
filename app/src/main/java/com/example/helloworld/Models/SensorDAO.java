@@ -22,16 +22,17 @@ public interface SensorDAO {
 
     @Query("SELECT * FROM AccelerometerEntity")
     List<AccelerometerEntity> getAccData();
-
-
     @Query("SELECT * FROM AccelerometerEntity where time >= :present_time  ")
     List<AccelerometerEntity> getAccDataPast1Hour(Long present_time);
 
-    @Query("SELECT x from AccelerometerEntity where time >= :present_time")
+
+    @Query("SELECT avg(x) from AccelerometerEntity where time >= :present_time")
     Float getAccDataGenX(Long present_time);
-    @Query("SELECT y from AccelerometerEntity where time >= :present_time")
+
+    @Query("SELECT avg(y) from AccelerometerEntity where time >= :present_time")
     Float getAccDataGenY(Long present_time);
-    @Query("SELECT z from AccelerometerEntity where time >= :present_time")
+
+    @Query("SELECT avg(z) from AccelerometerEntity where time >= :present_time")
     Float getAccDataGenZ(Long present_time);
 
 
@@ -42,8 +43,11 @@ public interface SensorDAO {
     List<TemperatureEntity> getTempData();
 
 
-    @Query("SELECT * FROM TemperatureEntity  where time >= :present_time ")
+    @Query("SELECT * from TemperatureEntity  where time >= :present_time ")
     List<TemperatureEntity> getTempDataPast1Hour(Long present_time);
+
+    @Query("SELECT  avg(`temp`) FROM  TemperatureEntity  where time >= :present_time")
+    float getTempDataGen(Long present_time);
 
     @Insert
     public void gpsDataInsert(GPSEntity gpsEntity);

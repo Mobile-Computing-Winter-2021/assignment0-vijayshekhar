@@ -3,13 +3,10 @@ package com.example.helloworld.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,7 +19,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -38,12 +34,11 @@ import com.example.helloworld.Models.SensorDatabase;
 import com.example.helloworld.R;
 
 import java.text.DecimalFormat;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
     private SensorManager sensorManager;
-    private Sensor sAccelerometer, sGPS, slinearAcc, sLight, sTemperature, sProximity;
+    private Sensor sAccelerometer, slinearAcc, sLight, sTemperature, sProximity;
     Boolean bacc, bgps, blinacc, blight, btemp, bprox = false;
     SensorDatabase sensorDatabase;
     Long last_time=  System.currentTimeMillis();
@@ -228,17 +223,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v) {
                 Long curTime = System.currentTimeMillis() - 3600000;
 //                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempData();
-                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempDataPast1Hour(curTime);
-                float x = 0.0f;
-                for (int i =0; i<temperatureEntityList.size(); i++){
-                    x += temperatureEntityList.get(i).getTemp();
+//                List<TemperatureEntity> temperatureEntityList = sensorDatabase.dao().getTempDataPast1Hour(curTime);
+                float avg = sensorDatabase.dao().getTempDataGen(curTime);
 
-                    Log.d("SENSOR_DATA" , ""+temperatureEntityList.get(i).getTemp() );
-                }
-
-                float xavg = x/temperatureEntityList.size();
-                float res = roundFloat(xavg);
-                tempview.setText(String.valueOf(res));
+                tempview.setText(String.valueOf(roundFloat(avg)));
 
             }
         });
@@ -252,26 +240,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Sensor sensor = event.sensor;
 
         if(sensor.getType() == Sensor.TYPE_ACCELEROMETER && bacc){
-
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
 
             motionDetection(x,y,z);
-
             x = roundFloat(x);
             y = roundFloat(y);
             z = roundFloat(z);
 
-
             Log.d(TAG, "onSensorChanged: Accelerometer"+"x="+x+", y="+y+", z="+z);
-
-
             AccelerometerEntity accelerometerEntity = new AccelerometerEntity(x,y,z,System.currentTimeMillis());
-
             sensorDatabase.dao().accDataInsert(accelerometerEntity);
-
-
 
         }
 
@@ -302,7 +282,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             float x = event.values[0];
 
             Log.d(TAG, "onSensorChanged: Temperature= "+x);
-
             TemperatureEntity temperatureEntity = new TemperatureEntity(x, System.currentTimeMillis());
             sensorDatabase.dao().tempDataInsert(temperatureEntity);
         }

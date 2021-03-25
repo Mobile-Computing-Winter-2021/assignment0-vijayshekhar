@@ -13,55 +13,48 @@
         android:id="@+id/acc_avg_button"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginBottom="144dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="32dp"
         android:text="accelerometer"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/lin_accs"
+        app:layout_constraintBottom_toTopOf="@+id/temp_avg_button"
+        app:layout_constraintEnd_toEndOf="@+id/temp_avg_button"
         app:layout_constraintStart_toStartOf="@+id/temp_avg_button"
-        app:layout_constraintTop_toBottomOf="@+id/temps" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/temp_avg_button"
-        android:layout_width="0dp"
+        android:layout_width="165dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="34dp"
         android:text="temperature"
         app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toStartOf="@+id/motion_status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acc_result_textview" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/temp_result_textview"
         android:layout_width="0dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="40dp"
-        android:text="_________"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/acc_avg_button"
-        app:layout_constraintTop_toBottomOf="@+id/acc_result_textview" />
+        android:layout_height="0dp"
+        android:layout_marginEnd="5dp"
+        android:text="_______"
+        app:layout_constraintBottom_toBottomOf="@+id/temp_avg_button"
+        app:layout_constraintEnd_toEndOf="@+id/acc_result_textview"
+        app:layout_constraintStart_toStartOf="@+id/motion_status"
+        app:layout_constraintTop_toTopOf="@+id/temp_avg_button" />
 
     <TextView
         android:id="@+id/acc_result_textview"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="4dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="30dp"
         android:text="_______"
-        app:layout_constraintBottom_toBottomOf="@+id/acc_avg_button"
+        app:layout_constraintBottom_toTopOf="@+id/temp_result_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/acc_avg_button"
-        app:layout_constraintTop_toTopOf="@+id/acc_avg_button" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/accs"
@@ -98,47 +91,47 @@
         android:id="@+id/temps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="11dp"
         android:text="Temperature"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/lin_accs"
+        app:layout_constraintEnd_toEndOf="@+id/accs"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/lin_accs" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/lights"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="24dp"
         android:text="Light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/accs"
-        app:layout_constraintTop_toBottomOf="@+id/gpss" />
+        app:layout_constraintBottom_toTopOf="@+id/proxs"
+        app:layout_constraintStart_toStartOf="@+id/proxs" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/gpss"
-        android:layout_width="0dp"
+        android:layout_width="89dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="11dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="31dp"
         android:text="GPS"
         app:layout_constraintBottom_toBottomOf="@+id/accs"
-        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-        app:layout_constraintStart_toStartOf="@+id/lights"
+        app:layout_constraintEnd_toEndOf="@+id/proxs"
+        app:layout_constraintStart_toEndOf="@+id/lin_accs"
         app:layout_constraintTop_toTopOf="@+id/accs" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/proxs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="196dp"
         android:text="Proximity"
+        app:layout_constraintBottom_toBottomOf="@+id/acc_avg_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lights" />
+        app:layout_constraintTop_toTopOf="@+id/title_text" />
 
     <TextView
         android:id="@+id/title_text"
@@ -157,26 +150,25 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="56dp"
         android:text="Motion Status:"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/accs"
-        app:layout_constraintStart_toStartOf="@+id/temp_avg_button" />
+        app:layout_constraintEnd_toStartOf="@+id/motion_status"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/motion_status"
-        android:layout_width="131dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="1dp"
         android:text="status"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <RadioGroup
@@ -184,14 +176,14 @@
         android:layout_width="0dp"
         android:layout_height="59dp"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="215dp"
         android:layout_marginEnd="33dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="215dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/acc_result_textview"
+        app:layout_constraintBottom_toBottomOf="@+id/motion_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/avg_title_text">
+        app:layout_constraintTop_toBottomOf="@+id/accs">
 
         <RadioButton
             android:id="@+id/x_checkbox"
