@@ -1,14 +1,22 @@
 package com.example.helloworld.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.helloworld.Models.Entities.AccelerometerEntity;
+import com.example.helloworld.Models.Entities.GPSEntity;
+import com.example.helloworld.Models.Entities.LightEntity;
 import com.example.helloworld.Models.Entities.Linear_accelerationEntity;
+import com.example.helloworld.Models.Entities.ProximityEntity;
 import com.example.helloworld.Models.Entities.TemperatureEntity;
 import com.example.helloworld.Models.SensorDatabase;
 import com.example.helloworld.R;
@@ -25,15 +36,16 @@ import com.example.helloworld.R;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
     private SensorManager sensorManager;
-    private Sensor sAccelerometer ,sGPS ,slinearAcc , sLight , sTemperature , sProximity ;
+    private Sensor sAccelerometer, sGPS, slinearAcc, sLight, sTemperature, sProximity;
     Boolean bacc, bgps, blinacc, blight, btemp, bprox = false;
     SensorDatabase sensorDatabase;
 
     private static final String TAG = "SensorActivity";
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         SwitchCompat accSwitch, gpsSwitch, linearSwitch, lightSwitch, tempSwitch, proximitySwitch;
         Button tempavg, accavg;
-        TextView accview,tempview;
+        TextView accview, tempview;
 
         // sensors initialisation
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -70,15 +82,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Database initialisation
         initDb();
 
+        // location listener initialisation
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
 
         //accelerometer switch listener
         accSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            if(isChecked){
+            if (isChecked) {
                 bacc = true;
-                sensorManager.registerListener(this,sAccelerometer,SensorManager.SENSOR_DELAY_FASTEST);
-            }
-            else{
+                sensorManager.registerListener(this, sAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            } else {
                 bacc = false;
                 sensorManager.unregisterListener(this);
             }
@@ -87,11 +101,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // linear acceleration switch listener
         linearSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            if(isChecked){
+            if (isChecked) {
                 blinacc = true;
-                sensorManager.registerListener(this,slinearAcc,SensorManager.SENSOR_DELAY_FASTEST);
-            }
-            else{
+                sensorManager.registerListener(this, slinearAcc, SensorManager.SENSOR_DELAY_FASTEST);
+            } else {
                 blinacc = false;
                 sensorManager.unregisterListener(this);
             }
@@ -100,13 +113,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // gps sensor switch listener
         gpsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            if(isChecked){
+            if (isChecked) {
                 bgps = true;
-                sensorManager.registerListener(this,sGPS,SensorManager.SENSOR_DELAY_FASTEST);
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0.0f, this);
+                Log.d(TAG, "onCreate: location service granted");
             }
             else{
                 bgps = false;
-                sensorManager.unregisterListener(this);
+                locationManager.removeUpdates(this);
+                Log.d(TAG, "onCreate: location service removed");
             }
         });
 
@@ -129,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if(isChecked){
                 btemp = true;
                 sensorManager.registerListener(this,sTemperature,SensorManager.SENSOR_DELAY_FASTEST);
-                Toast.makeText(this, "temp checked on", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "temp checked on", Toast.LENGTH_SHORT).show();
             }
             else{
                 btemp = false;
@@ -236,13 +252,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             Log.d(TAG, "onSensorChanged: Linear-acceleration"+"x="+x+", y="+y+", z="+z);
             Linear_accelerationEntity linear_accelerationEntity = new Linear_accelerationEntity(x,y,z,System.currentTimeMillis());
-//            sensorDatabase.dao().
+            sensorDatabase.dao().linaccDataInsert(linear_accelerationEntity);
 
         }
 
         if(sensor.getType() == Sensor.TYPE_LIGHT && blight){
             float x = event.values[0];
             Log.d(TAG, "onSensorChanged: Light value= "+x);
+            LightEntity lightEntity = new LightEntity(x,System.currentTimeMillis());
+            sensorDatabase.dao().lightDataInsert(lightEntity);
 
         }
 
@@ -258,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(sensor.getType() == Sensor.TYPE_PROXIMITY && bprox){
             float x = event.values[0];
             Log.d(TAG, "onSensorChanged: Proximity=  "+x);
+            ProximityEntity proximityEntity = new ProximityEntity(x, System.currentTimeMillis());
+            sensorDatabase.dao().proxDataInsert(proximityEntity);
         }
 
 
@@ -280,4 +300,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        float longi = (float) location.getLongitude();
+        float lat = (float) location.getLatitude();
+
+        Log.d(TAG, "onLocationChanged: "+"long= "+longi+"  latitude= "+lat);
+        GPSEntity gpsEntity = new GPSEntity(longi, lat ,System.currentTimeMillis());
+        sensorDatabase.dao().gpsDataInsert(gpsEntity);
+    }
 }

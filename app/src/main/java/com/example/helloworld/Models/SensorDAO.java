@@ -6,6 +6,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.helloworld.Models.Entities.AccelerometerEntity;
+import com.example.helloworld.Models.Entities.GPSEntity;
+import com.example.helloworld.Models.Entities.LightEntity;
+import com.example.helloworld.Models.Entities.Linear_accelerationEntity;
+import com.example.helloworld.Models.Entities.ProximityEntity;
 import com.example.helloworld.Models.Entities.TemperatureEntity;
 
 import java.util.List;
@@ -33,5 +37,19 @@ public interface SensorDAO {
 
     @Query("SELECT * FROM TemperatureEntity where datetime(time) >= datetime('now','-1 Hour' ) ")
     List<TemperatureEntity> getTempDataPast1Hour();
+
+    @Insert
+    public void gpsDataInsert(GPSEntity gpsEntity);
+
+    @Insert
+    public void linaccDataInsert(Linear_accelerationEntity linear_accelerationEntity);
+
+    @Insert
+    public  void proxDataInsert(ProximityEntity proximityEntity);
+
+    @Insert
+    public void lightDataInsert(LightEntity lightEntity);
+
+
 }
 
