@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         Sensor sensor = event.sensor;
-
+        TextView tv = findViewById(R.id.data_view);
         if(sensor.getType() == Sensor.TYPE_ACCELEROMETER && bacc){
             float x = event.values[0];
             float y = event.values[1];
@@ -250,6 +250,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             z = roundFloat(z);
 
             Log.d(TAG, "onSensorChanged: Accelerometer"+"x="+x+", y="+y+", z="+z);
+
+            tv.setText("Accelerometer"+"x="+x+", y="+y+", z="+z);
             AccelerometerEntity accelerometerEntity = new AccelerometerEntity(x,y,z,System.currentTimeMillis());
             sensorDatabase.dao().accDataInsert(accelerometerEntity);
 
@@ -265,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             z = roundFloat(z);
 
             Log.d(TAG, "onSensorChanged: Linear-acceleration"+"x="+x+", y="+y+", z="+z);
+            tv.setText("Linear-acceleration"+"x="+x+", y="+y+", z="+z);
             Linear_accelerationEntity linear_accelerationEntity = new Linear_accelerationEntity(x,y,z,System.currentTimeMillis());
             sensorDatabase.dao().linaccDataInsert(linear_accelerationEntity);
 
@@ -273,6 +276,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(sensor.getType() == Sensor.TYPE_LIGHT && blight){
             float x = event.values[0];
             Log.d(TAG, "onSensorChanged: Light value= "+x);
+            tv.setText("Light value= "+x);
             LightEntity lightEntity = new LightEntity(x,System.currentTimeMillis());
             sensorDatabase.dao().lightDataInsert(lightEntity);
 
@@ -282,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             float x = event.values[0];
 
             Log.d(TAG, "onSensorChanged: Temperature= "+x);
+            tv.setText("Temperature= "+x);
             TemperatureEntity temperatureEntity = new TemperatureEntity(x, System.currentTimeMillis());
             sensorDatabase.dao().tempDataInsert(temperatureEntity);
         }
@@ -289,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(sensor.getType() == Sensor.TYPE_PROXIMITY && bprox){
             float x = event.values[0];
             Log.d(TAG, "onSensorChanged: Proximity=  "+x);
+            tv.setText("Proximity=  "+x);
             ProximityEntity proximityEntity = new ProximityEntity(x, System.currentTimeMillis());
             sensorDatabase.dao().proxDataInsert(proximityEntity);
         }
@@ -345,10 +351,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        TextView tv1 = findViewById(R.id.data_view);
         float longi = (float) location.getLongitude();
         float lat = (float) location.getLatitude();
 
         Log.d(TAG, "onLocationChanged: "+"long= "+longi+"  latitude= "+lat);
+        tv1.setText("longitude= "+longi+"  latitude= "+lat);
         GPSEntity gpsEntity = new GPSEntity(longi, lat ,System.currentTimeMillis());
         sensorDatabase.dao().gpsDataInsert(gpsEntity);
     }
