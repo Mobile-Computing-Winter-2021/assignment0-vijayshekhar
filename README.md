@@ -10,7 +10,7 @@ https://developer.android.com/reference/android/net/wifi/ScanResult
 ● Showcase the list of APs that you can hear with their RSSI values (think of a nice UI) to
 show this. For example using bars as can be seen from this Fig. You can think of other
 alternatives as well.
-
+♦   
 ● Wardive inside your home and get RSSI measurements of the APs from different rooms
 of your home using WiFi scan results. Store this information. Design this wardriving
 using appropriate functionality in the UI. For example, you have one UI control like
