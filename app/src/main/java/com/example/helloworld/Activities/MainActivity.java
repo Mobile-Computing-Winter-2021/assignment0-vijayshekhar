@@ -25,6 +25,8 @@ import com.example.helloworld.R;
 import com.example.helloworld.ROOM.WifiDB;
 import com.example.helloworld.ROOM.WifiDao;
 import com.example.helloworld.ROOM.WifiEnity;
+import com.example.helloworld.Threads.InsertDataThread;
+import com.example.helloworld.Threads.ScanWifiThread;
 
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TextView tv;
     private EditText et;
-    WifiDB wifiDB;
+    public WifiDB wifiDB;
+    public List<ScanResult> scanResultsMain;
+
 
 
 
@@ -56,14 +60,16 @@ public class MainActivity extends AppCompatActivity {
 
         Button scanbt = (Button) findViewById(R. id.button);
 
+        // check the permission granted or not.
+        checkPermissionAccess();
+
         //scan button listener
         scanbt.setOnClickListener(v -> {
 
-            // check the permission granted or not.
-            checkPermissionAccess();
-
             // switch on the wifi sensor
             wifimanager.setWifiEnabled(true);
+
+            ScanWifiThread scanWifiThread = new ScanWifiThread(MainActivity.this, wifimanager);
 
             // intent filter for broadcast receiver
             IntentFilter filter = new IntentFilter();
@@ -74,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
+//                    ScanWifiThread scanWifiThread1 = new ScanWifiThread(MainActivity.this, wifimanager);
+//                    scanWifiThread1.start();
+
                     List<ScanResult> results = wifimanager.getScanResults();
                     final int n = results.size();
 
@@ -81,36 +90,33 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "No. of results:  "+n, Toast.LENGTH_SHORT).show();
 
                     //fetching room name
-                    String rname = String.valueOf(et.getText());
+                    String roomName = String.valueOf(et.getText());
                     String orientation  = getOrientation();
 
                     for (ScanResult res : results)
-                    {   int sigstren  = wifimanager.calculateSignalLevel(res.level);
+                    {   int signalStrength  = wifimanager.calculateSignalLevel(res.level);
                         Log.d(TAG, " SSID  =  " + res.SSID);
                         Log.d(TAG, " BSSID  =  " + res.BSSID);
                         Log.d(TAG, " level (RSS)  =  " + (res.level + 100));
-                        Log.d(TAG, " strength  =  " + sigstren);
+                        Log.d(TAG, " strength  =  " + signalStrength);
 
 
                         Log.d(TAG, "\n \n");
 
                         //setting ap configurations
-                        if(String.valueOf(res.SSID).contains("narayan_vani")){
+                        if(String.valueOf(res.SSID).contains("narayan_vani") || String.valueOf(res.SSID).contains("OPPO F11")){
 
                             Log.d(TAG, "onReceive: room insert");
-                            Toast.makeText(MainActivity.this, " SSID = " + res.SSID + " level = " +sigstren
+                            Toast.makeText(MainActivity.this, " SSID = " + res.SSID + " level = " +signalStrength
                                     , Toast.LENGTH_SHORT).show();
 
-                            new Thread(new Runnable(){
-                                @Override
-                                public void run() {
-                                    WifiEnity wifiEnity = new WifiEnity(res.SSID, res.BSSID,rname, orientation,res.level, sigstren);
-                                    wifiDB.dao().dataInsert(wifiEnity);
+                            WifiEnity wifiEnity = new WifiEnity(res.SSID, res.BSSID,roomName, orientation,res.level, signalStrength);
 
-                                    Log.d(TAG, "onReceive: room insert ---> onUIThread");
-                                    et.setText("on UI thread");
-                                }
-                            }).start();
+                            InsertDataThread insertDataThread = new InsertDataThread(wifiEnity , MainActivity.this);
+                            insertDataThread.start();
+
+
+
                         }
                     }
 
@@ -123,7 +129,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String getOrientation(){
+
+
+
+    public String getOrientation(){
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             return "landscape";
@@ -133,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPermissionAccess(){
+    public void checkPermissionAccess(){
         if (checkSelfPermission(CoarseLocation) != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 55);
         }
@@ -159,8 +168,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initDb(){
-//        wifiLocDatabase = Room.databaseBuilder(MainActivity.this , WifiLocDatabase.class , "SensorDB").build();
+    public void InsertThreadFinished(){
+
+    }
+
+    public void initDb(){
+
         wifiDB = Room.databaseBuilder(MainActivity.this, WifiDB.class, "WifiDataDB" ).build();
     }
 
