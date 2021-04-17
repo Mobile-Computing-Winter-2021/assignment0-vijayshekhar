@@ -16,27 +16,31 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.helloworld.Fragments.ListFragment;
 import com.example.helloworld.R;
 import com.example.helloworld.ROOM.WifiDB;
 import com.example.helloworld.ROOM.WifiDao;
 import com.example.helloworld.ROOM.WifiEnity;
+import com.example.helloworld.Threads.APInfoRetrive;
 import com.example.helloworld.Threads.InsertDataThread;
 import com.example.helloworld.Threads.ScanWifiThread;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private TextView tv;
-    private EditText et;
+    TextView scanStatus;
+    Button scanbt,listbt,graphbt,wardrivebt,locationbt;
     public WifiDB wifiDB;
-    public List<ScanResult> scanResultsMain;
+    public static List<ScanResult> scanResultsMain;
 
 
 
@@ -56,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
             initDb();
 
-        et = (EditText) findViewById(R.id.editText);
+        scanStatus = findViewById(R.id.textView2);
+        scanStatus.setText("Not started");
 
-        Button scanbt = (Button) findViewById(R. id.button);
+        scanbt = findViewById(R.id.button1);
 
         // check the permission granted or not.
         checkPermissionAccess();
@@ -69,32 +74,25 @@ public class MainActivity extends AppCompatActivity {
             // switch on the wifi sensor
             wifimanager.setWifiEnabled(true);
 
-            ScanWifiThread scanWifiThread = new ScanWifiThread(MainActivity.this, wifimanager);
-
             // intent filter for broadcast receiver
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+            scanStatus.setText("Scanning ....");
 
             registerReceiver(new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
 
-//                    ScanWifiThread scanWifiThread1 = new ScanWifiThread(MainActivity.this, wifimanager);
-//                    scanWifiThread1.start();
 
-                    List<ScanResult> results = wifimanager.getScanResults();
-                    final int n = results.size();
+                    scanResultsMain = wifimanager.getScanResults();
+                    final int n = scanResultsMain.size();
 
                     Log.d(TAG, "Wifi Scan Results Count: " + n);
-                    Toast.makeText(MainActivity.this, "No. of results:  "+n, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No. of results:  " + n, Toast.LENGTH_SHORT).show();
+                    scanStatus.setText("Scanning Complete!");
 
-                    //fetching room name
-                    String roomName = String.valueOf(et.getText());
-                    String orientation  = getOrientation();
-
-                    for (ScanResult res : results)
-                    {   int signalStrength  = wifimanager.calculateSignalLevel(res.level);
+                    for (ScanResult res : scanResultsMain) {
+                        int signalStrength = wifimanager.calculateSignalLevel(res.level);
                         Log.d(TAG, " SSID  =  " + res.SSID);
                         Log.d(TAG, " BSSID  =  " + res.BSSID);
                         Log.d(TAG, " level (RSS)  =  " + (res.level + 100));
@@ -102,31 +100,52 @@ public class MainActivity extends AppCompatActivity {
 
 
                         Log.d(TAG, "\n \n");
-
-                        //setting ap configurations
-                        if(String.valueOf(res.SSID).contains("narayan_vani") || String.valueOf(res.SSID).contains("OPPO F11")){
-
-                            Log.d(TAG, "onReceive: room insert");
-                            Toast.makeText(MainActivity.this, " SSID = " + res.SSID + " level = " +signalStrength
-                                    , Toast.LENGTH_SHORT).show();
-
-                            WifiEnity wifiEnity = new WifiEnity(res.SSID, res.BSSID,roomName, orientation,res.level, signalStrength);
-
-                            InsertDataThread insertDataThread = new InsertDataThread(wifiEnity , MainActivity.this);
-                            insertDataThread.start();
-
-
-
-                        }
                     }
-
                 }
-            }, filter);
-            wifimanager.startScan();
 
+            }, intentFilter);
+            wifimanager.startScan();
         });
 
+        listbt = findViewById(R.id.button4);
+        listbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, listActivity.class);
+
+                Bundle args = new Bundle();
+                args.putSerializable("scanlist",(Serializable)scanResultsMain);
+                intent.putExtra("listresult",args);
+
+
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
+
+        graphbt = findViewById(R.id.button3);
+        graphbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, graphActivity.class);
+
+                Bundle args = new Bundle();
+                args.putSerializable("scanlist",(Serializable)scanResultsMain);
+                intent.putExtra("listresult",args);
+
+                MainActivity.this.startActivity(intent);
+
+            }
+        });
+
+
+
     }
+
+
+
 
 
 
@@ -139,6 +158,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             return  "portrait";
+        }
+    }
+
+    public void APInfoFetched(List<WifiEnity> wifiEnityList){
+        Log.d(TAG, "APInfoFetched: inside");
+        for(WifiEnity wifiEnity : wifiEnityList){
+            Log.d(TAG, wifiEnity.getSsid() );
+            Toast.makeText(MainActivity.this,"SSID:  "+ String.valueOf(wifiEnity.getSsid()), Toast.LENGTH_SHORT).show();
         }
     }
 
