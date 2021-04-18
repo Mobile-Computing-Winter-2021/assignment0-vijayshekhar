@@ -3,6 +3,7 @@ package com.example.helloworld.Fragments;
 import android.content.Intent;
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,46 +13,46 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.helloworld.Activities.listActivity;
-import com.example.helloworld.ItemAdapter;
+import com.example.helloworld.WifiapAdaptor;
 import com.example.helloworld.Model;
 import com.example.helloworld.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class WifiListFragment extends Fragment {
 
-    public ListFragment(){}
+//    public ListFragment(){}
 
-    RecyclerView recyclerView;
-    List<Model> itemList;
     List<ScanResult> scanlist;
-
+    List<Model> itemList;
+    RecyclerView wifiListView;
+    private static final String TAG = "ListFragment";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
         View view=inflater.inflate(R.layout.list_fragement, container, false);
 
-        recyclerView=view.findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        wifiListView =view.findViewById(R.id.rec1);
+//        wifiListView.setHasFixedSize(true);
+        wifiListView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //initData();
+
         Intent intent = getActivity().getIntent();
         Bundle args = intent.getBundleExtra("listresult");
         scanlist = (List<ScanResult>) args.getSerializable("scanlist");
+        Log.d(TAG, "onCreateView: Data sent as bundle,");
 
+        wifiListView.setAdapter(new WifiapAdaptor(populateRecyclerView(),getContext()));
 
-        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));
-
-
+        Log.d(TAG, "onCreateView: Adaptor initialised");
 
         return view;
     }
 
-    private List<Model> initData() {
+    private List<Model> populateRecyclerView() {
 
         itemList=new ArrayList<>();
         try {
@@ -64,7 +65,7 @@ public class ListFragment extends Fragment {
             Toast.makeText(getActivity(), "scan results not arrived ", Toast.LENGTH_SHORT).show();
         }
 //
-
+        Log.d(TAG, "populateRecyclerView: list returned");
         return itemList;
     }
 }

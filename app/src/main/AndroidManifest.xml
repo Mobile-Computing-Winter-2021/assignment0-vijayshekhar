@@ -15,17 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloWorld">
 
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".Activities.MainActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.listActivity" />
-        <activity android:name=".Activities.graphActivity" />
-        <activity android:name=".Activities.wardriveActivity" />
-        <activity android:name=".Activities.LocationActivity"></activity>
+        <activity android:name=".Activities.listActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".Activities.graphActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
+        <activity android:name=".Activities.wardriveActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".Activities.LocationActivity" android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
     </application>
 
 </manifest>

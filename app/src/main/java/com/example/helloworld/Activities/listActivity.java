@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.helloworld.Fragments.ListFragment;
+import com.example.helloworld.Fragments.WifiListFragment;
 import com.example.helloworld.R;
 
 public class listActivity extends AppCompatActivity {
@@ -17,6 +17,6 @@ public class listActivity extends AppCompatActivity {
 
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.MainContainer,new ListFragment()).commit();
+                .replace(R.id.MainContainer,new WifiListFragment()).commit();
     }
 }

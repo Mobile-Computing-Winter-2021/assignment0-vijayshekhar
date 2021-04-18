@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
+public class WifiapAdaptor extends RecyclerView.Adapter<WifiapAdaptor.ViewHolder> {
 
     List<Model> itemList1;
     private Context context;
 
-    public ItemAdapter(List<Model> itemList,Context context) {
+    public WifiapAdaptor(List<Model> itemList, Context context) {
 
         this.itemList1=itemList;
         this.context=context;
@@ -27,14 +27,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WifiapAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item,parent,false);
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull WifiapAdaptor.ViewHolder holder, final int position) {
 
         holder.itemImage.setImageResource(itemList1.get(position).getImage());
         holder.itemtxt1.setText("SSID: "+itemList1.get(position).getSsid());
