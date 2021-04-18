@@ -18,6 +18,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class graphActivity extends AppCompatActivity {
         Bundle args = intent.getBundleExtra("listresult");
         List<ScanResult> scanlist = (List<ScanResult>) args.getSerializable("scanlist");
 
-
+        ArrayList<String > lableName = new ArrayList<>();
 
         try {
             if (scanlist.size() > 0){
@@ -57,13 +58,14 @@ public class graphActivity extends AppCompatActivity {
                     Log.d(TAG, "\n \n");
 
                     visitor.add(new BarEntry(i, (res.level + 100) ));
-                    str = str + "ap"+(i+1)+" ";
+//                    str = str + "ap"+(i+1)+" ";
+                    lableName.add(res.SSID);
                     i++;
                 }
 
 
-                BarDataSet barDataSet = new BarDataSet(visitor,str);
-                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                BarDataSet barDataSet = new BarDataSet(visitor,"Wifi access points");
+                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 barDataSet.setValueTextColor(Color.BLACK);
                 barDataSet.setValueTextSize(10f);
 
@@ -72,11 +74,18 @@ public class graphActivity extends AppCompatActivity {
                 graph.setData(barData);
 
                 XAxis xAxis = graph.getXAxis();
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(lableName));
+                xAxis.setDrawGridLines(false);
+                xAxis.setDrawAxisLine(false);
+                xAxis.setGranularity(1f);
+                xAxis.setLabelCount(lableName.size());
+                xAxis.setLabelRotationAngle(270);
 
 
 
-                graph.getDescription().setText("wifi data");
+                graph.getDescription().setText("Wifi RSS");
                 graph.animateY(2000);
+                graph.invalidate();
             }
         }catch (Exception e){
             Toast.makeText(this, "scan results not arrived", Toast.LENGTH_SHORT).show();

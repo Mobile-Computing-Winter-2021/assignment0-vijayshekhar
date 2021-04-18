@@ -16,7 +16,7 @@ of your home using WiFi scan results. Store this information. Design this wardri
 using appropriate functionality in the UI. For example, you have one UI control like
 button that says now start your wardriving.
 ● Given a test RSSI measurements of these APs, return your location. Think of a nice UI
-to develop this. For example, again having one UI control says a button that lets you
+to develop this. For example, again having one UI control says a button that lets 1
 test. During testing it will get RSSI of the APs nearby by getting the WiFi scan results.
 Then, it will match it to stored information with a single point that is most similar to the
 test data.
