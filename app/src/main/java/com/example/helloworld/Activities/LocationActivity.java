@@ -1,6 +1,7 @@
 package com.example.helloworld.Activities;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -47,20 +49,26 @@ public class LocationActivity extends AppCompatActivity {
     String location = "";
     int rss1 = 0, rss2 = 0;
     static List<WifiEntity1> dataDownload;
+    finalResult dataDownloadSorted[];
+
     private static final String TAG = "LocationActivity";
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        TextView tvRoom;
+        EditText kedit;
+        TextView scanStatus;
+        Button bt1,bt2;
+         tvRoom = (TextView) findViewById(R.id.textview);
+         kedit = (EditText) findViewById(R.id.edittext1);
+         scanStatus = findViewById(R.id.textView2);
 
-        TextView tvRoom = (TextView) findViewById(R.id.textView);
-        EditText kedit = (EditText) findViewById(R.id.edittext1);
-        TextView scanStatus = findViewById(R.id.textView2);
 
-
-        Button bt1 = (Button) findViewById(R.id.button1);
-        Button bt2 = (Button) findViewById(R.id.button2);
+         bt1 = (Button) findViewById(R.id.bt1);
+         bt2 = (Button) findViewById(R.id.bt2);
 
         WifiManager wifimanager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
@@ -88,10 +96,10 @@ public class LocationActivity extends AppCompatActivity {
 
                 for (ScanResult res : scanResultsMain) {
                     int signalStrength = wifimanager.calculateSignalLevel(res.level);
-                    Log.d(TAG, " SSID  =  " + res.SSID);
-                    Log.d(TAG, " BSSID  =  " + res.BSSID);
-                    Log.d(TAG, " level (RSS)  =  " + (res.level + 100));
-                    Log.d(TAG, " strength  =  " + signalStrength);
+//                    Log.d(TAG, " SSID  =  " + res.SSID);
+//                    Log.d(TAG, " BSSID  =  " + res.BSSID);
+//                    Log.d(TAG, " level (RSS)  =  " + (res.level + 100));
+//                    Log.d(TAG, " strength  =  " + signalStrength);
 
                     if (res.SSID.contains("naraya_vani")) {
                         rss1 = res.level + 100;
@@ -128,8 +136,9 @@ public class LocationActivity extends AppCompatActivity {
 
 
         bt1.setOnClickListener(v -> {
-        TextView tv = findViewById(R.id.textview);
-        tv.setText(location);
+            Toast.makeText(this, dataDownloadSorted[0].roomName, Toast.LENGTH_SHORT).show();
+                location = dataDownloadSorted[0].roomName;
+                tvRoom.setText(location);
 
 //            WifiDB wifiDB = Room.databaseBuilder(LocationActivity.this, WifiDB.class, "WifiDataDB" ).allowMainThreadQueries().build();
 //            List<WifiEntity1> dataDownload=  wifiDB.dao().getAll1();
@@ -153,12 +162,52 @@ public class LocationActivity extends AppCompatActivity {
 
         });
 
+        bt2.setOnClickListener(v -> {
+//            EditText kedit = (EditText) findViewById(R.id.edittext1);
+            Log.d(TAG, "onCreate: 1");
+            int k = 4;
+
+
+       try {
+           if ("".equalsIgnoreCase(String.valueOf(kedit.getText()))){
+               k = 4;
+               Toast.makeText(this, "using default k =4", Toast.LENGTH_SHORT).show();
+           }
+           else{
+               k =  Integer.parseInt(String.valueOf(kedit.getText()));
+           }
+
+
+               int arr [] = new int[k];
+               String room [] = new String[k];
+               for (int idx=0; idx<k ; idx++){
+                   arr[idx] = dataDownloadSorted[idx].dist;
+                   room[idx] = dataDownloadSorted[idx].roomName;
+               }
+               Log.d(TAG, "onCreate: 3");
+               int nn = getNN(arr, k);
+
+               for (int idx=0; idx<k ; idx++){
+                   if(arr[idx] == nn)
+//                    room[idx] = dataDownloadSorted[idx].roomName;
+                       location = room[idx];
+               }
+               Log.d(TAG, "onCreate: 4");
+               tvRoom.setText(location);
+
+       }catch (Exception e){
+           Log.d(TAG, "k button excep:  "+e);
+       }
+//
+
+        });
+
 
     }
 
     class Compare {
 
-        String compare(finalResult arr[], int n) {
+        finalResult[] compare(finalResult arr[], int n) {
             // Comparator to sort the pair according to second element
             Arrays.sort(arr, new Comparator<finalResult>() {
                 @Override
@@ -167,7 +216,8 @@ public class LocationActivity extends AppCompatActivity {
                 }
             });
 
-            return arr[n - 1].roomName;
+//            return arr[n - 1].roomName;
+            return  arr;
 
         }
     }
@@ -179,7 +229,7 @@ public class LocationActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-//                this.dataDownload = wifiEntity1s;
+                dataDownload = wifiEntity1s;
 
                 Log.d(TAG, "wifiInfoFetched: " + wifiEntity1s.size());
                 Toast.makeText(LocationActivity.this, "data size: param" + wifiEntity1s.size(), Toast.LENGTH_SHORT).show();
@@ -202,18 +252,63 @@ public class LocationActivity extends AppCompatActivity {
                     temp = temp + ((res.getRssi1() - rss1) * (res.getRssi1() - rss1));
                     arr[i] = new finalResult(locat , (int) Math.sqrt(temp));
                     i = i+1;
-//                    arr[i].dist = (int) Math.sqrt(temp);
+
                 }
+
+//                for (int j=0; j<wifiEntity1s.size();j++){
+//                    Log.d(TAG, "room name: "+arr[j].roomName+" distance:  "+arr[j].dist);
+//                }
+
                 Compare obj = new Compare();
 
-                location = obj.compare(arr, wifiEntity1s.size());
-                Toast.makeText(LocationActivity.this, "room located" + location, Toast.LENGTH_SHORT).show();
-            }
+//                location = obj.compare(arr, wifiEntity1s.size());
+                dataDownloadSorted = obj.compare(arr, wifiEntity1s.size());
+                Toast.makeText(LocationActivity.this, "room located" + dataDownloadSorted[0].dist+ "---->"+dataDownloadSorted[1].dist, Toast.LENGTH_SHORT).show();
 
+
+                Log.d(TAG, "wifiInfoFetched: sorted"+dataDownloadSorted);
+
+
+
+//                for (int j=0; j<wifiEntity1s.size();j++){
+//                    Log.d(TAG, "room name: "+dataDownloadSorted[j].roomName+" distance:  "+dataDownloadSorted[j].dist);
+//                }
+            }
 
         });
 
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+     int getNN(int[] a, int n)
+    {
+
+        int max = Arrays.stream(a).max().getAsInt();
+
+        int t = max + 1;
+        int[] count = new int[t];
+        for (int i = 0; i < t; i++)
+        {
+            count[i] = 0;
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            count[a[i]]++;
+        }
+
+        int mode = 0;
+        int k = count[0];
+        for (int i = 1; i < t; i++)
+        {
+            if (count[i] > k)
+            {
+                k = count[i];
+                mode = i;
+            }
+        }
+
+        return mode;
     }
 
 }
