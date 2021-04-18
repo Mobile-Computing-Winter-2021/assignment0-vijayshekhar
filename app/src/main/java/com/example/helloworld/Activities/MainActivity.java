@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -18,18 +17,12 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.helloworld.Fragments.ListFragment;
 import com.example.helloworld.R;
 import com.example.helloworld.ROOM.WifiDB;
-import com.example.helloworld.ROOM.WifiDao;
 import com.example.helloworld.ROOM.WifiEnity;
-import com.example.helloworld.Threads.APInfoRetrive;
-import com.example.helloworld.Threads.InsertDataThread;
-import com.example.helloworld.Threads.ScanWifiThread;
 
 import java.io.Serializable;
 import java.util.List;
@@ -56,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final WifiManager wifimanager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+         WifiManager wifimanager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             initDb();
 
         scanStatus = findViewById(R.id.textView2);
-        scanStatus.setText("Not started");
+        scanStatus.setText("Scan Status: Not started");
 
         scanbt = findViewById(R.id.button1);
 
@@ -77,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             // intent filter for broadcast receiver
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-            scanStatus.setText("Scanning ....");
+            scanStatus.setText("Scan Status: Scanning ....");
 
             registerReceiver(new BroadcastReceiver() {
                 @Override
@@ -89,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Wifi Scan Results Count: " + n);
                     Toast.makeText(MainActivity.this, "No. of results:  " + n, Toast.LENGTH_SHORT).show();
-                    scanStatus.setText("Scanning Complete!");
+                    scanStatus.setText("Scan Status: Scanning Complete!");
 
                     for (ScanResult res : scanResultsMain) {
                         int signalStrength = wifimanager.calculateSignalLevel(res.level);
@@ -140,25 +133,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        wardrivebt = findViewById(R.id.button2);
+        wardrivebt.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, wardriveActivity.class);
+        MainActivity.this.startActivity(intent);
 
+        });
 
-    }
+        locationbt = findViewById(R.id.button5);
+        locationbt.setOnClickListener(v -> {
 
+            Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+            MainActivity.this.startActivity(intent);
+        });
 
-
-
-
-
-
-
-    public String getOrientation(){
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            return "landscape";
-        }
-        else {
-            return  "portrait";
-        }
     }
 
     public void APInfoFetched(List<WifiEnity> wifiEnityList){
@@ -194,10 +182,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public void InsertThreadFinished(){
-
-    }
 
     public void initDb(){
 

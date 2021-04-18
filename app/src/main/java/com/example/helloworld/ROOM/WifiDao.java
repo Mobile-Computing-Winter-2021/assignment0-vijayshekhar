@@ -16,4 +16,10 @@ public interface WifiDao {
 
     @Query("SELECT * FROM WifiEnity")
     List<WifiEnity> getAll();
+
+    @Insert
+    void dataInsert1(WifiEntity1 wifiEntity1);
+
+    @Query("SELECT * FROM WifiEntity1")
+    List<WifiEntity1> getAll1();
 }

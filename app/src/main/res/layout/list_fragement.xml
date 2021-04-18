@@ -6,7 +6,6 @@
     android:background="#fff"
     tools:context="com.example.helloworld.Fragments.ListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
